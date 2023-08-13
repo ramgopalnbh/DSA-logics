@@ -1,6 +1,7 @@
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class Recursion {
+public class Recursion1 {
 
 
 //    static void fun1(int a){
@@ -119,6 +120,15 @@ public class Recursion {
         else
             return NCR(n-1,r-1)+NCR(n-1,r);
     }
+
+    //TOH
+    static void TOH(int n, int A, int B, int C){
+        if(n>0){
+            TOH(n-1,A,B,C);
+            System.out.println("Source - Destination : "+A +"-"+C);
+            TOH(n-1,B,A,C);
+        }
+    }
     public static void main(String[] args) {
     //        int i =3;
     //        System.out.println("----By Fun1");
@@ -154,5 +164,25 @@ public class Recursion {
 
         System.out.println("\nCombination nCr: "+nCr(6,2));
 
-        System.out.println("Combination NCR: "+NCR(6,2));    }
+        System.out.println("Combination NCR: "+NCR(6,2));
+
+
+        List<Integer> list=Arrays.asList(1,2,3,4,5,6,7);
+        List<Integer> shortedList =
+                list.stream()
+                        //.filter(i -> i%2==0)
+                        //.map(i->i+10)
+                        .reduce(new ArrayList<Integer>(),(a,b)->{
+                            if(b%2==0)
+                                a.add(b);
+                            return a;
+                        },(a,b)->{
+                            a.addAll(b);
+                            return a;
+                        });
+                        //.collect(Collectors.toSet());
+        System.out.println("Sorted Data: "+shortedList);
+
+        TOH(3,1,2,3);
+    }
 }
